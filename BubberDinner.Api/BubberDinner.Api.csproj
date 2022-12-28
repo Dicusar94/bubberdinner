@@ -13,6 +13,7 @@
   <ItemGroup>
     <ProjectReference Include="..\BubberDinner.Contracts\BubberDinner.Contracts.csproj" />
     <ProjectReference Include="..\BubberDinner.Application\BubberDinner.Application.csproj" />
+    <ProjectReference Include="..\BubberDinner.Infrastructure\BubberDinner.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

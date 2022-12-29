@@ -4,15 +4,18 @@ using System.Security.Claims;
 using BubberDinner.Application.Common.Interfaces.Authentication;
 using Microsoft.IdentityModel.Tokens;
 using BubberDinner.Application.Common.Interfaces.Services;
+using Microsoft.Extensions.Options;
 
 namespace BubberDinner.Infrastructure.Authentication;
 
 public class JwtTokenGenerator : IJwtTokenGenerator
 {
     private readonly IDateTimeProvider _dateTimeProvider;
-    public JwtTokenGenerator(IDateTimeProvider dateTimeProvider)
+    private readonly JwtSettings _jwtSettings;
+    public JwtTokenGenerator(IDateTimeProvider dateTimeProvider, IOptions<JwtSettings> jwtOptions)
     {
         _dateTimeProvider = dateTimeProvider;
+        _jwtSettings = jwtOptions.Value;
     }
 
     public string GenerateToken(Guid userId, string firstName, string lastName)
@@ -28,9 +31,10 @@ public class JwtTokenGenerator : IJwtTokenGenerator
         };
 
         var securityToken = new JwtSecurityToken(
-            issuer: "BubberDinner",
+            issuer: _jwtSettings.Issuer,
+            audience: _jwtSettings.Audience,
             claims: claims,
-            expires: _dateTimeProvider.UtcNow.AddDays(1),
+            expires: _dateTimeProvider.UtcNow.AddMinutes(_jwtSettings.ExpiryMinutes),
             signingCredentials: signingCredentials
         );
 
@@ -41,9 +45,9 @@ public class JwtTokenGenerator : IJwtTokenGenerator
 
     #region Local
 
-    private static SigningCredentials CreateSigningCredentials()
+    private SigningCredentials CreateSigningCredentials()
     {
-        var key = Encoding.UTF8.GetBytes("super-secret-key");
+        var key = Encoding.UTF8.GetBytes(_jwtSettings.Secret);
         var symmetricSecurityKey = new SymmetricSecurityKey(key);
         var signingCredentials = new SigningCredentials(symmetricSecurityKey, SecurityAlgorithms.HmacSha256);
         return signingCredentials;

@@ -12,7 +12,7 @@
     "BubberDinner.Api": {
       "commandName": "Project",
       "dotnetRunMessages": true,
-      "launchBrowser": true,
+      "launchBrowser": false,
       "launchUrl": "swagger",
       "applicationUrl": "https://localhost:7271;http://localhost:5091",
       "environmentVariables": {

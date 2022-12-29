@@ -1,3 +1,4 @@
+using BubberDinner.Api.Middleware;
 using BubberDinner.Application;
 using BubberDinner.Application.Services.Authentication;
 using BubberDinner.Infrastructure;
@@ -19,6 +20,7 @@ var app = builder.Build();
         app.UseSwaggerUI();
     }
 
+    app.UseMiddleware<ErrorHandlingMiddleware>();
     app.UseHttpsRedirection();
     app.MapControllers();
     app.Run();

@@ -5,6 +5,7 @@ using BubberDinner.Application.Common.Interfaces.Authentication;
 using Microsoft.IdentityModel.Tokens;
 using BubberDinner.Application.Common.Interfaces.Services;
 using Microsoft.Extensions.Options;
+using BubberDinner.Domain.Entities;
 
 namespace BubberDinner.Infrastructure.Authentication;
 
@@ -18,15 +19,15 @@ public class JwtTokenGenerator : IJwtTokenGenerator
         _jwtSettings = jwtOptions.Value;
     }
 
-    public string GenerateToken(Guid userId, string firstName, string lastName)
+    public string GenerateToken(User user)
     {
         var signingCredentials = CreateSigningCredentials();
 
         var claims = new []
         {
-            new Claim(JwtRegisteredClaimNames.Sub, userId.ToString()),
-            new Claim(JwtRegisteredClaimNames.GivenName, firstName),
-            new Claim(JwtRegisteredClaimNames.FamilyName, lastName),
+            new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString()),
+            new Claim(JwtRegisteredClaimNames.GivenName, user.FirstName),
+            new Claim(JwtRegisteredClaimNames.FamilyName, user.LastName),
             new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
         };
 

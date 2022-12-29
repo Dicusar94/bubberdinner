@@ -1,6 +1,8 @@
+using BubberDinner.Api.Errors;
 using BubberDinner.Application;
 using BubberDinner.Application.Services.Authentication;
 using BubberDinner.Infrastructure;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 {
@@ -9,6 +11,7 @@ var builder = WebApplication.CreateBuilder(args);
     builder.Services.AddControllers();
     builder.Services.AddEndpointsApiExplorer();
     builder.Services.AddSwaggerGen();
+    builder.Services.AddSingleton<ProblemDetailsFactory, BubberDinnerProblemDetailsFactory>();
 }
 
 var app = builder.Build();

@@ -1,3 +1,4 @@
+using System.Text.RegularExpressions;
 using BubberDinner.Application.Common.Errors;
 using BubberDinner.Application.Services.Authentication;
 using BubberDinner.Contracts.Authentication;
@@ -26,20 +27,20 @@ public class AuthenticationController : ControllerBase
             request.Email,
             request.Password);
 
-        if(registerResult.IsT0)
-        {
-            var authResult = registerResult.AsT0;
-            var response = new AuthenticationResponse(
-            authResult.User.Id,
-            authResult.User.FirstName,
-            authResult.User.LastName,
-            authResult.User.Email,
-            authResult.Token);
+        return registerResult.Match(
+            authResult => Ok(MapAuthResult(authResult)),
+            _ => Problem(statusCode: StatusCodes.Status409Conflict, title: "Email already exists")
+        );
+    }
 
-            return Ok(response);
-        }
-
-        return Problem(statusCode: StatusCodes.Status409Conflict, title: "Email already exists.");
+    private static AuthenticationResponse MapAuthResult(AuthenticationResult authResult)
+    {
+        return new AuthenticationResponse(
+        authResult.User.Id,
+        authResult.User.FirstName,
+        authResult.User.LastName,
+        authResult.User.Email,
+        authResult.Token);
     }
 
     [HttpPost("login")]

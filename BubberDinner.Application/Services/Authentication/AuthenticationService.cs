@@ -1,3 +1,4 @@
+using BubberDinner.Application.Common.Errors;
 using BubberDinner.Application.Common.Interfaces.Authentication;
 using BubberDinner.Application.Common.Interfaces.Persistence;
 using BubberDinner.Domain.Entities;
@@ -19,7 +20,7 @@ public class AuthenticationService : IAuthenticationService
     {
         if(_userRepository.GetUserByEmail(email) is not User user)
         {
-            throw new Exception("User with given email does not exist");
+            throw new Exception("User with this email already exists");
         }
 
         if (user.Password != password)
@@ -36,7 +37,7 @@ public class AuthenticationService : IAuthenticationService
     {
         if(_userRepository.GetUserByEmail(email) is not null)
         {
-            throw new Exception("User with given email already exists");
+            throw new DuplicateEmailException();
         }
 
         var user = new User

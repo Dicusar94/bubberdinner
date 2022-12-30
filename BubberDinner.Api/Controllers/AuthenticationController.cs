@@ -21,7 +21,7 @@ public class AuthenticationController : ControllerBase
     [HttpPost("register")]
     public IActionResult Register(RegisterRequest request)
     {
-        OneOf<AuthenticationResult, DuplicateEmailError> registerResult = _authenticationService.Register(
+        OneOf<AuthenticationResult, IError> registerResult = _authenticationService.Register(
             request.FirstName,
             request.LastName,
             request.Email,
@@ -29,7 +29,7 @@ public class AuthenticationController : ControllerBase
 
         return registerResult.Match(
             authResult => Ok(MapAuthResult(authResult)),
-            _ => Problem(statusCode: StatusCodes.Status409Conflict, title: "Email already exists")
+            error => Problem(statusCode: (int)error.StatusCode, title: error.ErrorMessage)
         );
     }
 

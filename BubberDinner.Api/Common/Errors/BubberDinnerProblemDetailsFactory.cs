@@ -1,11 +1,10 @@
 using System.Diagnostics;
-using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.Extensions.Options;
 
-namespace BubberDinner.Api.Errors;
+namespace BubberDinner.Api.Common.Errors;
 
 public class BubberDinnerProblemDetailsFactory : ProblemDetailsFactory
 {

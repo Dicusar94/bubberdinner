@@ -1,4 +1,4 @@
-using BubberDinner.Api.Errors;
+using BubberDinner.Api.Common.Errors;
 using BubberDinner.Application;
 using BubberDinner.Application.Services.Authentication;
 using BubberDinner.Infrastructure;

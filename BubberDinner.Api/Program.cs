@@ -1,6 +1,5 @@
 using BubberDinner.Api.Common.Errors;
 using BubberDinner.Application;
-using BubberDinner.Application.Services.Authentication;
 using BubberDinner.Infrastructure;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 

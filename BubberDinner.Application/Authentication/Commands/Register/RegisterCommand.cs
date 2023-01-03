@@ -1,8 +1,8 @@
-using BubberDinner.Application.Services.Authentication.Common;
+using BubberDinner.Application.Authentication.Common;
 using ErrorOr;
 using MediatR;
 
-namespace BubberDinner.Application.Commands.Register;
+namespace BubberDinner.Application.Authentication.Commands.Register;
 
 public record RegisterCommand(
     string FirstName,

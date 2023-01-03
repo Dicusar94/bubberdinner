@@ -1,12 +1,12 @@
+using BubberDinner.Application.Authentication.Common;
 using BubberDinner.Application.Common.Interfaces.Authentication;
 using BubberDinner.Application.Common.Interfaces.Persistence;
-using BubberDinner.Application.Services.Authentication.Common;
 using BubberDinner.Domain.Common.Errors;
 using BubberDinner.Domain.Entities;
 using ErrorOr;
 using MediatR;
 
-namespace BubberDinner.Application.Commands.Register;
+namespace BubberDinner.Application.Authentication.Commands.Register;
 
 public class RegisterCommandHandler : IRequestHandler<RegisterCommand, ErrorOr<AuthenticationResult>>
 {

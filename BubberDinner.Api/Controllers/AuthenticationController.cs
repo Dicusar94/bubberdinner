@@ -1,11 +1,11 @@
+using BubberDinner.Application.Authentication.Commands.Register;
+using BubberDinner.Application.Authentication.Common;
+using BubberDinner.Application.Authentication.Queries.Login;
 using BubberDinner.Contracts.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using ErrorOr;
 using BubberDinner.Domain.Common.Errors;
-using BubberDinner.Application.Services.Authentication.Common;
-using BubberDinner.Application.Commands.Register;
 using MediatR;
-using BubberDinner.Application.Queries;
 
 namespace BubberDinner.Api.Controllers;
 

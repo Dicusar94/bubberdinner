@@ -12,7 +12,7 @@ namespace BubberDinner.Api.Controllers;
 [Route("auth")]
 public class AuthenticationController : ApiController
 {
-    private readonly IMediator _mediator;
+    private readonly ISender _mediator;
 
     public AuthenticationController(IMediator mediator)
     {

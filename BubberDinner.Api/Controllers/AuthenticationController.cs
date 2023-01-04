@@ -49,7 +49,7 @@ public class AuthenticationController : ApiController
     public async Task<IActionResult> Login(LoginRequest request)
     {
         var query = _mapper.Map<LoginQuery>(request);
-
+ 
         var loginResult = await _mediator.Send(query);
 
         return loginResult.Match(
